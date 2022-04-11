@@ -242,7 +242,7 @@ https://github.com/pharmaverse/end_to_end_examples/blob/main/content/data/adsl/_
 
 ---
 
-# Welcom to the {pharmaverse}!
+# Welcome to the `{pharmaverse}`!
 
-
+<img src="www/img/pharmaverse.png" style="width:100%;" />
 
