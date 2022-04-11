@@ -37,8 +37,64 @@ class: middle, center
 
 # The Clinical Reporting Pipeline
 
+.two-column[
 
-Pic here
+.left-col[
+.center[
+### Here we focus on during/after the clinical trials
+
+]
+
+
+]
+
+.right-col[
+```{r, echo = FALSE, results = 'asis'}
+nomnoml::nomnoml(
+  "
+  [Collected|
+  CRFs
+  Lab Assays
+  PK
+  Medical Coding
+]
+
+[Tabulation|
+  SDTM
+  Traceability
+  No derivations
+  Comprehensive
+]
+
+[Analysis Ready|
+ADaM
+\"One Proc Away\"
+Derived data
+Traceability
+] 
+
+[Results|
+Data Displays
+Case Study Report
+Submission Package
+Quality Control
+]
+
+[Delivery to Agency|
+eCTD Portal
+]
+
+[Collected] -> [Tabulation]
+[Tabulation] -> [Analysis Ready]
+[Results] -> [Delivery to Agency]
+"
+)
+```
+]
+
+]
+
+
 
 ---
 
@@ -82,12 +138,19 @@ Pic here
 
 ---
 
-# Why xportr is not on CRAN – is the rework to haven
+# Why xportr is not on CRAN(yet)
 
 ---
 
 # {metacore}
 
+.two-column[
+
+.left-col[
+![metacore](www/img/metacore.png)
+]
+
+.right-col[
 **Challenges for R in CRP**
 
 - No available R packages that can ingest and parse metadata for clinical trial datasets or help build a define.xml.
@@ -101,11 +164,23 @@ Pic here
 **Future development path**
 
 - Working with different company's metadata files as well as in-development packages, e.g., admiral, to leverage metadata upstream or downstream.
+]
+
+]
+
+
 
 ---
 
 # {timber}
 
+.two-column[
+
+.left-col[
+![timber](www/img/timber.png)
+]
+
+.right-col[
 **Challenges for R in CRP**
 
 - There is no SAS-like log file for R-based programs that show traceability and help to create audit-ready code.
@@ -121,11 +196,22 @@ Pic here
 - Interactive display screen to batch submit multiple programs.
 
 - What else should go in a log?  Companies might have different needs.
+]
+]
+
+
 
 ---
 
 # {xportr}
 
+.two-column[
+
+.left-col[
+![xportr](www/img/xportr.png)
+]
+
+.right-col[
 **Challenges for R in CRP**
 
 - Writing a compliant xpt file using haven or other xpt-supported packages is challenging for types, lengths and labels
@@ -143,6 +229,9 @@ Pic here
 **Future development path**
 
 - How to ingest metadata specifications from different companies and different file formats
+]
+]
+
 
 ---
 
