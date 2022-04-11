@@ -6,6 +6,7 @@ institute: "Phuse Connect 2022"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
+    css: ['fc','fc-fonts', 'www/css/style.css']
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -16,19 +17,7 @@ output:
       ratio: "16:9"
 ---
 
-```{r xaringan-themer, include=FALSE}
-library(xaringanthemer)
-mono_light(
-  white_color = "#fff",
-  header_font_google = google_font("Dela Gothic One", "600"),
-  text_font_google = google_font("Space Mono", "300", "300i"),
-  code_font_google = google_font("Fira Code"),
-  text_font_size = "24px",
-  code_font_size = "0.7em"
-)
-```
-
-class: middle
+class: middle, center
 
 # Outline
 
@@ -55,27 +44,41 @@ Pic here
 
 # Challenges of using an Open-Source Language in a Regulated Environment
 
-**An Incomplete List of Challenges** 
+.two-column[
 
-- SAS® processes have years of use within regulatory agencies and tend to take precedence.   
+  .left-col[
 
-- Company Firewalls and VPNs.  
+  **An Incomplete List of Challenges** 
 
-- Sharing of code and data. 
+  - SAS® processes have years of use within regulatory agencies and tend to take precedence.   
 
-- Does a R package bend to SAS® processes or does the package recreate/redefine the process?
+  - Company Firewalls and VPNs.  
 
-- Who maintains the open-source product?
+  - Sharing of code and data. 
 
-**An Incomplete List of Solutions**
+  - Does a R package bend to SAS® processes or does the package recreate/redefine the process?
 
-- Github, Gitlab and etc. help us to share, fix and build up code in an interactive and version-controlled process.
+  - Who maintains the open-source product?
 
-- R Consortium is working with the FDA to investigate delivering a submission in R.
+  ]
 
-- R packages already out there that mimic some of SAS® processes – {haven}, {SASxport}
+  .right-col[
 
-- Pharma companies will have a vested interest in maintaining these packages.
+  **An Incomplete List of Solutions**
+
+  - Github, Gitlab and etc. help us to share, fix and build up code in an interactive and version-controlled process.
+
+  - R Consortium is working with the FDA to investigate delivering a submission in R.
+
+  - R packages already out there that mimic some of SAS® processes – {haven}, {SASxport}
+
+  - Pharma companies will have a vested interest in maintaining these packages.
+
+  ]
+
+]
+
+
 
 ---
 
