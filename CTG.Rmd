@@ -1,0 +1,156 @@
+---
+title: "Closing the Gap"
+subtitle: "Creating an End-to-End R Package Toolkit for the Clinical Reporting Pipeline"
+author: "Eli Miller, Atorus & Ben Straub, GSK"
+institute: "Phuse Connect 2022"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      titleSlideClass: ["bottom", "left"]
+      slideNumberFormat: "%current%"
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+mono_light(
+  white_color = "#fff",
+  header_font_google = google_font("Dela Gothic One", "600"),
+  text_font_google = google_font("Space Mono", "300", "300i"),
+  code_font_google = google_font("Fira Code"),
+  text_font_size = "24px",
+  code_font_size = "0.7em"
+)
+```
+
+class: middle
+
+# Outline
+
+<br>
+
+1. Defining the Clinical Reporting Pipeline
+
+2. Open Source in a Regulated Environment
+
+3. A collaboration begins between Atorus and GSK
+
+4. Overview of the 3 Packages – {metacore}, {timber}, {xportr}
+
+5. Welcome to the {pharmaverse}!
+
+---
+
+# The Clinical Reporting Pipeline
+
+
+Pic here
+
+---
+
+# Challenges of using an Open-Source Language in a Regulated Environment
+
+**An Incomplete List of Challenges** 
+
+- SAS® processes have years of use within regulatory agencies and tend to take precedence.   
+
+- Company Firewalls and VPNs.  
+
+- Sharing of code and data. 
+
+- Does a R package bend to SAS® processes or does the package recreate/redefine the process?
+
+- Who maintains the open-source product?
+
+**An Incomplete List of Solutions**
+
+- Github, Gitlab and etc. help us to share, fix and build up code in an interactive and version-controlled process.
+
+- R Consortium is working with the FDA to investigate delivering a submission in R.
+
+- R packages already out there that mimic some of SAS® processes – {haven}, {SASxport}
+
+- Pharma companies will have a vested interest in maintaining these packages.
+
+---
+
+# Why xportr is not on CRAN – is the rework to haven
+
+---
+
+# {metacore}
+
+**Challenges for R in CRP**
+
+- No available R packages that can ingest and parse metadata for clinical trial datasets or help build a define.xml.
+
+**Solutions**
+
+- Built functions for parsing xml data and other data types specific to clinical trial datasets.
+
+- Functions and objects can be leveraged to help for dataset and variable creation as well as user for creating and codelist and derivations.
+
+**Future development path**
+
+- Working with different company's metadata files as well as in-development packages, e.g., admiral, to leverage metadata upstream or downstream.
+
+---
+
+# {timber}
+
+**Challenges for R in CRP**
+
+- There is no SAS-like log file for R-based programs that show traceability and help to create audit-ready code.
+
+**Solutions**
+
+- Created a utilities and wrapper functions to capture user info, session information and warnings and errors in an easy-to-read format.
+
+- Allows for recreation of script, not just the output.
+
+**Future development path**
+
+- Interactive display screen to batch submit multiple programs.
+
+- What else should go in a log?  Companies might have different needs.
+
+---
+
+# {xportr}
+
+**Challenges for R in CRP**
+
+- Writing a compliant xpt file using haven or other xpt-supported packages is challenging for types, lengths and labels
+
+**Solutions**
+
+- Adding well defined metadata
+
+- Helps to write compliant xpt files
+
+- Logs and messages for information about metadata
+
+- Checks on the data before final output
+
+**Future development path**
+
+- How to ingest metadata specifications from different companies and different file formats
+
+---
+
+# End to End Example
+
+end_to_end_examples/_index.Rmd at main · pharmaverse/end_to_end_examples (github.com)
+https://github.com/pharmaverse/end_to_end_examples/blob/main/content/data/adsl/_index.Rmd
+
+---
+
+# Welcom to the {pharmaverse}!
+
+
+
