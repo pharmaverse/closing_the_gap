@@ -15,6 +15,23 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
+
+---
+
+class: middle, center
+
+# Objective
+
+## Present and discuss three R packages, {metacore}, {timber}, {xportr}, and how they fit into the larger framework of the {pharmaverse} answer to the Clinical Reporting Pipeline.
+
+
+```{r, echo=FALSE, out.width="25%"}
+knitr::include_graphics("www/img/ctg.png")
+```
+
+
+
+
 ---
 
 class: middle, center
@@ -23,15 +40,15 @@ class: middle, center
 
 <br/>
 
-1. Defining the Clinical Reporting Pipeline
+Defining the Clinical Reporting Pipeline
 
-2. Open Source in a Regulated Environment
+Open Source in a Regulated Environment
 
-3. A collaboration begins between Atorus and GSK
+A collaboration begins between Atorus and GSK
 
-4. Overview of the 3 Packages – {metacore}, {timber}, {xportr}
+Overview of the 3 Packages – {metacore}, {timber}, {xportr}
 
-5. Welcome to the {pharmaverse}!
+Welcome to the {pharmaverse}!
 
 ---
 
@@ -41,17 +58,16 @@ class: middle, center
 
 .left-col[
 .center[
-### Here we focus on during/after the clinical trials
+### 
 
 ]
 
 
 ]
-
-.right-col[
+.center[
 ```{r, echo = FALSE, results = 'asis'}
 nomnoml::nomnoml(
-  "
+  "[<frame>Focus on during/after the clinical trials|
   [Collected|
   CRFs
   Lab Assays
@@ -69,6 +85,7 @@ nomnoml::nomnoml(
 [Analysis Ready|
 ADaM
 \"One Proc Away\"
+\"One %>% Away\"
 Derived data
 Traceability
 ] 
@@ -87,11 +104,11 @@ eCTD Portal
 [Collected] -> [Tabulation]
 [Tabulation] -> [Analysis Ready]
 [Results] -> [Delivery to Agency]
-"
+]",
+6000, 1000
 )
 ```
 ]
-
 ]
 
 
@@ -129,6 +146,8 @@ eCTD Portal
   - R packages already out there that mimic some of SAS® processes – {haven}, {SASxport}
 
   - Pharma companies will have a vested interest in maintaining these packages.
+  
+  - New graduates are coming out of school with R and Python skills
 
   ]
 
@@ -138,7 +157,7 @@ eCTD Portal
 
 ---
 
-# Why xportr is not on CRAN(yet)
+# Risk Mitigation: Why xportr pacakge is not on CRAN(yet)
 .two-column[
 
 .left-col[
