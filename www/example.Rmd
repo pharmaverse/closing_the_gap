@@ -2,7 +2,9 @@
 title: "Create ADSL"
 author: "Christina Fillmore"
 date: "03/02/2022"
-output: html_document
+output: 
+   html_document:
+      css: ["example.css"]
 description: "An example of how to generate an ADSL dataset from STDM"
 ---
   The first step is to load our pharamverse libraries and data. Here we are trying to create an ADSL dataset using the pilot CDISC data.
@@ -12,15 +14,18 @@ options(repos = c(
   pharmaverse = 'https://pharmaverse.r-universe.dev',
   CRAN = 'https://cloud.r-project.org'))
 
-library(metacore)
-library(metatools)
-library(admiral)
-library(xportr)
-library(dplyr)
-library(tidyr)
-library(safetyData)
-library(lubridate)
-library(stringr)
+suppressPackageStartupMessages({
+   library(metacore)
+   library(metatools)
+   library(admiral)
+   library(xportr)
+   library(dplyr)
+   library(tidyr)
+   library(safetyData)
+   library(lubridate)
+   library(stringr)
+})
+
 # Read in data 
 data("sdtm_dm")
 data("sdtm_ds")
@@ -85,7 +90,7 @@ adsl_dates <- adsl_ct %>%
 
 
 
-```{r disposition}
+```{r disposition, warning=FALSE}
 adsl_dispo <- adsl_dates %>% 
    # Derive a Disposition Status 
    derive_disposition_status(

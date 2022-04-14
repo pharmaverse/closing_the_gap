@@ -139,6 +139,36 @@ eCTD Portal
 ---
 
 # Why xportr is not on CRAN(yet)
+.two-column[
+
+.left-col[
+
+### Backend dependancy issues
+
+### Limited time from OS developers
+
+### Difficulty Explaining the Need for Changes
+
+]
+
+.right-col[
+- [Dec 11, 2020 - SASxport Issue Reported](https://github.com/r-gregmisc/SASxport/issues/20) 
+
+- [Feb 5, 2021 - PR to SASxport mreged in](https://github.com/r-gregmisc/SASxport/pull/21) 
+
+- [Nov 17, 2021 - Issue with haven reported](https://github.com/tidyverse/haven/issues/650) 
+
+- [Nov 23, 2021 - Fix in underlying haven library patched](https://github.com/WizardMac/ReadStat/pull/258) 
+
+- [Feb 21, 2022 - New release for haven backend](https://github.com/WizardMac/ReadStat/releases/tag/v1.1.8-rc0)
+
+- [Feb 25, 2022 - Backend updates made to haven](https://github.com/tidyverse/haven/pull/659) 
+
+- In Progress - Updates to xportr to switch to haven.
+
+]
+
+]
 
 ---
 
