@@ -173,7 +173,7 @@ eCTD Portal
 .right-col[
 - [Dec 11, 2020 - SASxport Issue Reported](https://github.com/r-gregmisc/SASxport/issues/20) 
 
-- [Feb 5, 2021 - PR to SASxport mreged in](https://github.com/r-gregmisc/SASxport/pull/21) 
+- [Feb 5, 2021 - PR to SASxport merged in](https://github.com/r-gregmisc/SASxport/pull/21) 
 
 - [Nov 17, 2021 - Issue with haven reported](https://github.com/tidyverse/haven/issues/650) 
 
