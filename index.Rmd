@@ -54,16 +54,6 @@ Welcome to the {pharmaverse}!
 
 # The Clinical Reporting Pipeline
 
-.two-column[
-
-.left-col[
-.center[
-### 
-
-]
-
-
-]
 .center[
 ```{r, echo = FALSE, results = 'asis'}
 nomnoml::nomnoml(
@@ -105,10 +95,10 @@ eCTD Portal
 [Tabulation] -> [Analysis Ready]
 [Results] -> [Delivery to Agency]
 ]",
-6000, 1000
+width = 1000,
+height = 500
 )
 ```
-]
 ]
 
 
