@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Eli Miller and Ben Straub - inspired by Christina Fillmore" />
 
 
-<title>Create ADSL</title>
+<title>Create ADSL with Log</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -423,252 +422,215 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Create ADSL</h1>
-<h4 class="author">Eli Miller and Ben Straub - inspired by Christina
-Fillmore</h4>
-<h4 class="date">Sys.Date()</h4>
+<h1 class="title toc-ignore">Create ADSL with Log</h1>
+<h4 class="author"></h4>
 
 </div>
 
 
-<p>The first step is to load our pharamverse libraries and data. Here we
-are trying to create an ADSL dataset using the pilot CDISC data.</p>
-<pre class="r"><code>knitr::knit_hooks$set(purl = knitr::hook_purl)
+<pre class="r"><code>timber::axecute(&quot;example.R&quot;)</code></pre>
+<pre><code>--------------------------------------------------------------------------------
+-                               timber Metadata                                -
+--------------------------------------------------------------------------------
+This log was generated using timber 0.0.1.9002
+timber package version: 0.0.1.9002
+timber build: Github (atorus-research/timber@1c94b812d24402d2da22be74622682b566adf443)
+timber link to repository: https://github.com/atorus-research/timber
+--------------------------------------------------------------------------------
+-                          User and File Information                           -
+--------------------------------------------------------------------------------
+User: rstudio-user
+File Name: example.R
+File Path: /cloud/project/www
+--------------------------------------------------------------------------------
+-                             Session Information                              -
+--------------------------------------------------------------------------------
+─ Session info ─────────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.1.3 (2022-03-10)
+ os       Ubuntu 20.04.4 LTS
+ system   x86_64, linux-gnu
+ ui       RStudio
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       UTC
+ date     2022-05-02
+ rstudio  2022.02.1+461.pro1 Prairie Trillium (server)
+ pandoc   2.17.1.1 @ /usr/lib/rstudio-server/bin/quarto/bin/ (via rmarkdown)
 
-options(repos = c(
-  pharmaverse = &#39;https://pharmaverse.r-universe.dev&#39;,
-  CRAN = &#39;https://cloud.r-project.org&#39;))
+─ Packages ─────────────────────────────────────────────────────────────────────
+ package     * version    date (UTC) lib source
+ admiral     * 0.6.3      2022-03-14 [1] https://pharmaverse.r-universe.dev (R
+      4.1.3)
+ assertthat    0.2.1      2019-03-21 [1] CRAN (R 4.1.3)
+ cellranger    1.1.0      2016-07-27 [1] CRAN (R 4.1.3)
+ cli           3.3.0      2022-04-25 [1] CRAN (R 4.1.3)
+ crayon        1.5.1      2022-03-26 [1] CRAN (R 4.1.3)
+ digest        0.6.29     2021-12-01 [1] RSPM (R 4.1.0)
+ dplyr       * 1.0.9      2022-04-28 [1] CRAN (R 4.1.3)
+ ellipsis      0.3.2      2021-04-29 [1] CRAN (R 4.1.3)
+ evaluate      0.15       2022-02-18 [1] RSPM (R 4.1.0)
+ fansi         1.0.3      2022-03-24 [1] CRAN (R 4.1.3)
+ fastmap       1.1.0      2021-01-25 [1] RSPM (R 4.1.0)
+ forcats       0.5.1      2021-01-27 [1] CRAN (R 4.1.3)
+ generics      0.1.2      2022-01-31 [1] CRAN (R 4.1.3)
+ glue          1.6.2      2022-02-24 [1] RSPM (R 4.1.0)
+ haven       * 2.5.0      2022-04-15 [1] CRAN (R 4.1.3)
+ hms           1.1.1      2021-09-26 [1] CRAN (R 4.1.3)
+ htmltools     0.5.2      2021-08-25 [1] RSPM (R 4.1.0)
+ htmlwidgets   1.5.4      2021-09-08 [1] CRAN (R 4.1.3)
+ httpuv        1.6.5      2022-01-05 [1] CRAN (R 4.1.3)
+ janitor       2.1.0      2021-01-05 [1] CRAN (R 4.1.3)
+ knitr         1.37       2021-12-16 [1] RSPM (R 4.1.0)
+ later         1.3.0      2021-08-18 [1] CRAN (R 4.1.3)
+ lifecycle     1.0.1      2021-09-24 [1] CRAN (R 4.1.3)
+ lubridate   * 1.8.0      2021-10-07 [1] CRAN (R 4.1.3)
+ magrittr      2.0.3      2022-03-30 [1] CRAN (R 4.1.3)
+ metacore    * 0.0.4      2022-03-14 [1] Github
+      (atorus-research/metacore@b21f965)
+ metatools   * 0.1.1      2022-04-20 [1] CRAN (R 4.1.3)
+ mime          0.12       2021-09-28 [1] RSPM (R 4.1.0)
+ miniUI        0.1.1.1    2018-05-18 [1] CRAN (R 4.1.3)
+ NLP           0.2-1      2020-10-14 [1] CRAN (R 4.1.3)
+ nomnoml       0.2.5      2022-02-23 [1] CRAN (R 4.1.3)
+ pillar        1.7.0      2022-02-01 [1] CRAN (R 4.1.3)
+ pkgconfig     2.0.3      2019-09-22 [1] CRAN (R 4.1.3)
+ promises      1.2.0.1    2021-02-11 [1] CRAN (R 4.1.3)
+ purrr         0.3.4      2020-04-17 [1] CRAN (R 4.1.3)
+ R6            2.5.1      2021-08-19 [1] RSPM (R 4.1.0)
+ Rcpp          1.0.8.3    2022-03-17 [1] CRAN (R 4.1.3)
+ readr         2.1.2      2022-01-30 [1] CRAN (R 4.1.3)
+ readxl        1.3.1      2019-03-13 [1] CRAN (R 4.1.3)
+ remotes       2.4.2      2021-11-30 [1] CRAN (R 4.1.3)
+ rlang         1.0.2      2022-03-04 [1] RSPM (R 4.1.0)
+ rmarkdown     2.13       2022-03-10 [1] RSPM (R 4.1.0)
+ rstudioapi    0.13       2020-11-12 [1] CRAN (R 4.1.3)
+ safetyData  * 1.0.0      2021-01-19 [1] CRAN (R 4.1.3)
+ sessioninfo   1.2.2      2021-12-06 [1] CRAN (R 4.1.3)
+ shiny         1.7.1      2021-10-02 [1] CRAN (R 4.1.3)
+ slam          0.1-50     2022-01-08 [1] CRAN (R 4.1.3)
+ snakecase     0.11.0     2019-05-25 [1] CRAN (R 4.1.3)
+ stringi       1.7.6      2021-11-29 [1] RSPM (R 4.1.0)
+ stringr     * 1.4.0      2019-02-10 [1] RSPM (R 4.1.0)
+ tibble        3.1.6      2021-11-07 [1] CRAN (R 4.1.3)
+ tidyr       * 1.2.0      2022-02-01 [1] CRAN (R 4.1.3)
+ tidyselect    1.1.2      2022-02-21 [1] CRAN (R 4.1.3)
+ timber      * 0.0.1.9002 2022-05-02 [1] Github (atorus-research/timber@1c94b81)
+ tm            0.7-8      2020-11-18 [1] CRAN (R 4.1.3)
+ tzdb          0.2.0      2021-10-27 [1] CRAN (R 4.1.3)
+ utf8          1.2.2      2021-07-24 [1] CRAN (R 4.1.3)
+ vctrs         0.4.1      2022-04-13 [1] CRAN (R 4.1.3)
+ waiter        0.2.5      2022-01-03 [1] CRAN (R 4.1.3)
+ xaringan      0.23       2022-03-08 [1] CRAN (R 4.1.3)
+ xfun          0.30       2022-03-02 [1] RSPM (R 4.1.0)
+ XML           3.99-0.9   2022-02-24 [1] CRAN (R 4.1.3)
+ xml2          1.3.3      2021-11-30 [1] CRAN (R 4.1.3)
+ xportr      * 0.0.0.9001 2022-04-27 [1] Github (atorus-research/xportr@3204ae7)
+ xtable        1.8-4      2019-04-21 [1] CRAN (R 4.1.3)
+ yaml          2.3.5      2022-02-21 [1] RSPM (R 4.1.0)
 
+ [1] /cloud/lib/x86_64-pc-linux-gnu-library/4.1
+ [2] /opt/R/4.1.3/lib/R/library
 
-suppressPackageStartupMessages({
-   library(metacore)
-   library(metatools)
-   library(admiral)
-   library(xportr)
-   library(dplyr)
-   library(tidyr)
-   library(safetyData)
-   library(lubridate)
-   library(stringr)
-   library(haven)
-   remotes::install_github(&quot;atorus-research/timber&quot;, ref = &quot;dev&quot;)
-  library(timber)
-})</code></pre>
-<pre><code>## Skipping install of &#39;timber&#39; from a github remote, the SHA1 (1c94b812) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-<pre class="r"><code># Read in data 
-data(&quot;sdtm_dm&quot;)
-data(&quot;sdtm_ds&quot;)
-data(&quot;sdtm_ex&quot;)
-data(&quot;sdtm_vs&quot;)
-data(&quot;sdtm_lb&quot;)
-data(&quot;sdtm_sv&quot;)
-data(&quot;sdtm_sc&quot;)
-data(&quot;sdtm_mh&quot;)
-data(&quot;sdtm_qs&quot;)
+─ External software ────────────────────────────────────────────────────────────
+ setting        value
+ cairo          1.16.0
+ cairoFT
+ pango          1.44.7
+ png            1.6.37
+ jpeg           8.0
+ tiff           LIBTIFF, Version 4.1.0
+ tcl            8.6.10
+ curl           7.68.0
+ zlib           1.2.11
+ bzlib          1.0.8, 13-Jul-2019
+ xz             5.2.4
+ PCRE           10.34 2019-11-21
+ ICU            66.1
+ TRE            TRE 0.8.0 R_fixes (BSD)
+ iconv          glibc 2.31
+ readline       8.0
+ BLAS           /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3
+ lapack         /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3
+ lapack_version 3.9.0
 
-# Read in metacore object 
-load(metacore_example(&quot;pilot_ADaM.rda&quot;))
-metacore &lt;- metacore %&gt;% 
-  select_dataset(&quot;ADSL&quot;)</code></pre>
-<div id="start-building" class="section level2">
-<h2>Start Building</h2>
-<p>The first thing we are going to do is pull through all the columns
-that come directly from the SDTM datasets. You might know which datasets
-you are going to pull from directly already, but if you don’t you can
-call <code>build_from_derived</code> with just an empty list and the
-error will tell you which datasets you need to supply.</p>
-<pre class="r"><code>build_from_derived(metacore, list(), predecessor_only = FALSE)</code></pre>
-<pre><code>## Error in build_from_derived(metacore, list(), predecessor_only = FALSE): Not all datasets provided. Please pass the following dataset(s):
-## DM</code></pre>
-<p>In this case all the columns come from <code>DM</code> so that is the
-only dataset I will pass into <code>build_from_derived</code>. The
-result is all the columns are combined to make a new dataset and any
-columns that need renaming between SDTM and ADAM are renamed.</p>
-<pre class="r"><code>adsl_preds &lt;- build_from_derived(metacore, list(&quot;dm&quot; = sdtm_dm), predecessor_only = FALSE, keep = TRUE)
-head(adsl_preds)</code></pre>
-<pre><code>##        STUDYID     USUBJID SUBJID SITEID                  ARM AGE  AGEU  RACE
-## 1 CDISCPILOT01 01-701-1015   1015    701              Placebo  63 YEARS WHITE
-## 2 CDISCPILOT01 01-701-1023   1023    701              Placebo  64 YEARS WHITE
-## 3 CDISCPILOT01 01-701-1028   1028    701 Xanomeline High Dose  71 YEARS WHITE
-## 4 CDISCPILOT01 01-701-1033   1033    701  Xanomeline Low Dose  74 YEARS WHITE
-## 5 CDISCPILOT01 01-701-1034   1034    701 Xanomeline High Dose  77 YEARS WHITE
-## 6 CDISCPILOT01 01-701-1047   1047    701              Placebo  85 YEARS WHITE
-##   SEX                 ETHNIC DTHFL    RFSTDTC    RFENDTC               TRT01P
-## 1   F     HISPANIC OR LATINO  &lt;NA&gt; 2014-01-02 2014-07-02              Placebo
-## 2   M     HISPANIC OR LATINO  &lt;NA&gt; 2012-08-05 2012-09-02              Placebo
-## 3   M NOT HISPANIC OR LATINO  &lt;NA&gt; 2013-07-19 2014-01-14 Xanomeline High Dose
-## 4   M NOT HISPANIC OR LATINO  &lt;NA&gt; 2014-03-18 2014-04-14  Xanomeline Low Dose
-## 5   F NOT HISPANIC OR LATINO  &lt;NA&gt; 2014-07-01 2014-12-30 Xanomeline High Dose
-## 6   F NOT HISPANIC OR LATINO  &lt;NA&gt; 2013-02-12 2013-03-29              Placebo</code></pre>
-<p>Now we have the base dataset, we can start to create the variable
-decodes and groups using the control terminology.</p>
-<pre class="r"><code>mock_fpath &lt;- system.file(&quot;extdata&quot;, &quot;mock_spec.xlsx&quot;, package=&quot;metacore&quot;)
-cts &lt;- readxl::read_xlsx(mock_fpath, sheet = 4)
+────────────────────────────────────────────────────────────────────────────────
+--------------------------------------------------------------------------------
+-                               Masked Functions                               -
+--------------------------------------------------------------------------------
+function `sdtm_dm` from {package:safetyData} by .GlobalEnv
+function `sdtm_ds` from {package:safetyData} by .GlobalEnv
+function `sdtm_ex` from {package:safetyData} by .GlobalEnv
+function `sdtm_lb` from {package:safetyData} by .GlobalEnv
+function `sdtm_mh` from {package:safetyData} by .GlobalEnv
+function `sdtm_qs` from {package:safetyData} by .GlobalEnv
+function `sdtm_sc` from {package:safetyData} by .GlobalEnv
+function `sdtm_sv` from {package:safetyData} by .GlobalEnv
+function `sdtm_vs` from {package:safetyData} by .GlobalEnv
+function `metacore` from {package:metacore} by .GlobalEnv
+function `%&gt;%` from {package:tidyr, package:dplyr, package:xportr, package:metacore} by package:stringr
+function `intersect` from {package:dplyr, package:base} by package:lubridate
+function `setdiff` from {package:dplyr, package:base} by package:lubridate
+function `union` from {package:dplyr, package:base} by package:lubridate
+function `Arith` from {package:methods} by package:lubridate
+function `Compare` from {package:methods} by package:lubridate
+function `show` from {package:methods} by package:lubridate
+function `as.difftime` from {package:base} by package:lubridate
+function `date` from {package:base} by package:lubridate
+function `all_of` from {package:dplyr} by package:tidyr
+function `any_of` from {package:dplyr} by package:tidyr
+function `as_tibble` from {package:dplyr} by package:tidyr
+function `contains` from {package:dplyr} by package:tidyr
+function `ends_with` from {package:dplyr} by package:tidyr
+function `everything` from {package:dplyr} by package:tidyr
+function `last_col` from {package:dplyr} by package:tidyr
+function `matches` from {package:dplyr} by package:tidyr
+function `num_range` from {package:dplyr} by package:tidyr
+function `one_of` from {package:dplyr} by package:tidyr
+function `starts_with` from {package:dplyr} by package:tidyr
+function `tibble` from {package:dplyr} by package:tidyr
+function `tribble` from {package:dplyr} by package:tidyr
+function `desc` from {package:admiral} by package:dplyr
+function `filter_if` from {package:admiral} by package:dplyr
+function `vars` from {package:admiral} by package:dplyr
+function `filter` from {package:stats} by package:dplyr
+function `lag` from {package:stats} by package:dplyr
+function `setequal` from {package:base} by package:dplyr
+function `rlang_downstream_check` from {NA, org:r-lib} by org:r-lib
+function `plot` from {package:base} by package:graphics
+function `body&lt;-` from {package:base} by package:methods
+function `kronecker` from {package:base} by package:methods
+--------------------------------------------------------------------------------
+-                         Program Run Time Information                         -
+--------------------------------------------------------------------------------
+Start time: 2022-05-02 16:59:11 UTC
+End time: 2022-05-02 16:59:11 UTC
+Run time: 0 seconds
+--------------------------------------------------------------------------------
+-                             Errors and Warnings                              -
+--------------------------------------------------------------------------------
+Errors:
+    Not all datasets provided. Please pass the following dataset(s):
+    DM
 
-metacore$codelist</code></pre>
-<pre><code>## # A tibble: 25 × 4
-##    code_id    name    codes            type       
-##    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;           &lt;chr&gt;      
-##  1 CL.AGEGR1  AGEGR1  &lt;tibble [3 × 2]&gt; code_decode
-##  2 CL.AGEGR1N AGEGR1N &lt;tibble [3 × 2]&gt; code_decode
-##  3 CL.AGEU    AGEU    &lt;tibble [1 × 2]&gt; code_decode
-##  4 CL.ARM     ARM     &lt;tibble [3 × 2]&gt; code_decode
-##  5 CL.ARM     ARM     &lt;tibble [3 × 2]&gt; code_decode
-##  6 CL.ARM     ARM     &lt;tibble [3 × 2]&gt; code_decode
-##  7 CL.ARMN    ARMN    &lt;tibble [3 × 2]&gt; code_decode
-##  8 CL.ARMN    ARMN    &lt;tibble [3 × 2]&gt; code_decode
-##  9 CL.BMICAT  BMICAT  &lt;tibble [3 × 2]&gt; code_decode
-## 10 CL.DISCCD  DISCCD  &lt;tibble [9 × 2]&gt; code_decode
-## # … with 15 more rows</code></pre>
-<pre class="r"><code>adsl_ct &lt;- adsl_preds %&gt;% 
-   create_cat_var(metacore, AGE, AGEGR1, AGEGR1N) %&gt;% 
-   create_var_from_codelist(metacore, RACE, RACEN) %&gt;% 
-   create_var_from_codelist(metacore, TRT01P, TRT01PN) %&gt;% 
-   mutate(
-      SITEID = as.character(SITEID),
-      SITEGR1 = SITEID, 
-      TRT01A = TRT01P,
-      TRT01AN = TRT01PN,
-      ITTFL = if_else(!is.na(ARM) &amp; ARM != &quot;Screen Failure&quot;, &quot;Y&quot;, &quot;N&quot;))</code></pre>
-<pre class="r"><code>adsl_dates &lt;- adsl_ct %&gt;%
-   derive_var_trtsdtm(dataset_ex = sdtm_ex) %&gt;% # Derive Datetime of First Exposure to Treatment
-   derive_var_trtedtm(dataset_ex = sdtm_ex) %&gt;% # Derive Datetime of Last Exposure to Treatment
-   derive_vars_dtm_to_dt(source_vars = vars(TRTSDTM, TRTEDTM)) %&gt;%  #Convert Datetime variables to date 
-   mutate(TRTDURD = as.numeric(TRTEDT - TRTSDT) + 1,
-          CUMDOSE = TRT01PN * TRTDURD,
-          AVGDD = CUMDOSE/TRTDURD,
-          SAFFL = if_else(ITTFL == &quot;Y&quot; &amp; !is.na(TRTSDT), &quot;Y&quot;, &quot;N&quot;)) %&gt;% 
-          drop_unspec_vars(metacore)</code></pre>
-<pre class="r"><code>adsl_dispo &lt;- adsl_dates %&gt;% 
-   # Derive a Disposition Status 
-   derive_disposition_status(
-      dataset_ds = sdtm_ds,
-      new_var = EOSSTT,
-      status_var = DSDECOD,
-      filter = DSCAT == &quot;DISPOSITION EVENT&quot;
-   ) %&gt;%
-   # Derive a Disposition Reason
-   derive_disposition_reason(
-      dataset_ds = sdtm_ds,
-      new_var = DCSREAS,
-      reason_var = DSDECOD,
-      filter = DSCAT == &quot;DISPOSITION EVENT&quot; &amp; DSDECOD != &quot;SCREEN FAILURE&quot;
-   ) %&gt;% 
-   # Derived Disposition Date 
-   derive_disposition_dt(
-      dataset_ds = sdtm_ds,
-      new_var = RFENDT,
-      dtc = DSSTDTC,
-      filter_ds = DSCAT == &quot;OTHER EVENT&quot; &amp; DSDECOD == &quot;FINAL RETRIEVAL VISIT&quot;
-   ) %&gt;% 
-   # Getting the standardize dispositions from codelist 
-   create_var_from_codelist(metacore, EOSSTT, DCDECOD) %&gt;% 
-   # Creating disposition flags 
-   mutate(
-      DISCONFL = if_else(DCDECOD != &quot;COMPLETED&quot;, &quot;Y&quot;, NA_character_),
-      DSRAEFL = if_else(DCDECOD != &quot;ADVERSE EVENT&quot;, &quot;Y&quot;, NA_character_))
+Warnings:
+    
+--------------------------------------------------------------------------------
+-                         Messages, Output, and Result                         -
+--------------------------------------------------------------------------------
+Messages:
+    Skipping install of &#39;timber&#39; from a github remote, the SHA1 (1c94b812) has not changed since last install.  Use `force = TRUE` to force installation
+Output:
+    
 
-# Get end of treatment visit 
-adsl_dispo &lt;- sdtm_ds %&gt;% 
-   filter(DSTERM ==&#39;PROTOCOL COMPLETED&#39;) %&gt;% 
-   mutate(VISNUMEN = if_else(VISITNUM == 13, 12, VISITNUM)) %&gt;% 
-   select(USUBJID, VISNUMEN) %&gt;% 
-   left_join(adsl_dispo, ., by = &quot;USUBJID&quot;)</code></pre>
-<pre class="r"><code># Get heights at screening cause those are the only heights available 
-heights &lt;- sdtm_vs %&gt;% 
-   filter(VISITNUM == 1, VSTESTCD == &#39;HEIGHT&#39;) %&gt;% 
-   select(USUBJID, VSTEST, VSSTRESN)
-
-bmis &lt;- sdtm_vs %&gt;% 
-   # Get baseline weight 
-   filter( VISITNUM == 3, VSTESTCD == &quot;WEIGHT&quot;) %&gt;% 
-   select(USUBJID, VSTEST, VSSTRESN) %&gt;% 
-   # Combine with height 
-   bind_rows(heights) %&gt;% 
-   # Pivot to a row per subject and calculate BMIBL
-   pivot_wider(names_from = VSTEST, values_from = VSSTRESN) %&gt;% 
-   mutate(BMIBL = compute_bmi(Height, Weight)) %&gt;% 
-   rename(WEIGHTBL = Weight, HEIGHTBL = Height) %&gt;%
-   # Create the BMI grouping using the control terminology 
-   create_cat_var(metacore, BMIBL, BMIBLGR1)
-bmis </code></pre>
-<pre><code>## # A tibble: 254 × 5
-##    USUBJID     WEIGHTBL HEIGHTBL BMIBL BMIBLGR1
-##    &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
-##  1 01-701-1015     54.4     147.  25.1 25-&lt;30  
-##  2 01-701-1023     80.3     163.  30.4 &gt;=30    
-##  3 01-701-1028     99.3     178.  31.4 &gt;=30    
-##  4 01-701-1033     88.4     175.  28.8 25-&lt;30  
-##  5 01-701-1034     62.6     155.  26.1 25-&lt;30  
-##  6 01-701-1047     67.1     149.  30.4 &gt;=30    
-##  7 01-701-1097     78.0     169.  27.3 25-&lt;30  
-##  8 01-701-1111     59.9     158.  23.9 &lt;25     
-##  9 01-701-1115     78.9     182.  23.9 &lt;25     
-## 10 01-701-1118     71.2     180.  21.9 &lt;25     
-## # … with 244 more rows</code></pre>
-<pre class="r"><code>adsl_bmi &lt;- left_join(adsl_dispo, bmis, by = &quot;USUBJID&quot;)</code></pre>
-</div>
-<div id="apply-codelists" class="section level2">
-<h2>Apply Codelists</h2>
-<pre class="r"><code>completer_cal &lt;- function(.data, wk_num, sv){
-   new_col &lt;- paste0(&quot;COMP&quot;, wk_num, &quot;FL&quot;) %&gt;% sym()
-   sv %&gt;% 
-      group_by(USUBJID) %&gt;% 
-      filter(VISIT == paste(&quot;WEEK&quot;, wk_num)) %&gt;% 
-      select(USUBJID, SVSTDTC) %&gt;% 
-      left_join(.data, . , by = &quot;USUBJID&quot;) %&gt;% 
-      mutate({{new_col }}:= if_else(!is.na(SVSTDTC) &amp;&amp; TRTEDT &gt;= SVSTDTC, &quot;Y&quot;, &quot;N&quot;)) %&gt;% 
-      select(-SVSTDTC)
-}
-
-first_visit &lt;- sdtm_sv %&gt;% 
-   filter(VISITNUM == 1) %&gt;% 
-   mutate(VISIT1DT = as_date(SVSTDTC)) %&gt;%
-   select(USUBJID, VISIT1DT) 
-
-adsl_fls &lt;- adsl_bmi %&gt;% 
-   completer_cal(8, sdtm_sv) %&gt;% 
-   completer_cal(16, sdtm_sv) %&gt;% 
-   completer_cal(24, sdtm_sv) %&gt;% 
-   left_join(first_visit, by= &quot;USUBJID&quot;)</code></pre>
-<pre class="r"><code>adsl_ed &lt;- sdtm_sc %&gt;% 
-   filter(SCTESTCD == &quot;EDLEVEL&quot;) %&gt;% 
-   select(USUBJID, SCSTRESN) %&gt;% 
-   rename(EDUCLVL = SCSTRESN) %&gt;% 
-   left_join(adsl_fls, ., by = &quot;USUBJID&quot;)
-
-adsl_alz &lt;- sdtm_qs %&gt;% 
-   group_by(USUBJID) %&gt;% 
-   filter(QSCAT == &quot;ALZHEIMER&#39;S DISEASE ASSESSMENT SCALE&quot;) %&gt;%
-   summarise(MMSETOT = sum(as.numeric(QSORRES), na.rm = TRUE)) %&gt;% 
-   left_join(adsl_ed, ., by = &quot;USUBJID&quot;)
-
-adsl_mh &lt;- sdtm_mh %&gt;% 
-   filter(MHCAT == &quot;PRIMARY DIAGNOSIS&quot;) %&gt;% 
-   mutate(DISONSDT = as_date(MHSTDTC)) %&gt;%
-   select(USUBJID, DISONSDT) %&gt;% 
-   left_join(adsl_alz, ., by = &quot;USUBJID&quot;) %&gt;% 
-   mutate(DURDIS = interval(DISONSDT, VISIT1DT) %/% months(1)) %&gt;% 
-   create_cat_var(metacore, DURDIS, DURDSGR1)</code></pre>
-<pre class="r"><code>adsl_raw &lt;- sdtm_qs %&gt;% 
-   filter(VISITNUM &gt; 3) %&gt;% 
-   group_by(USUBJID) %&gt;% 
-   summarise(efffl = any(QSTEST == &quot;ADAS-COG(11) Subscore&quot;) &amp; any(QSTESTCD == &quot;CIBIC&quot;)) %&gt;% 
-   left_join(adsl_mh, by = &quot;USUBJID&quot;) %&gt;% 
-   mutate(EFFFL = if_else(efffl &amp; SAFFL == &quot;Y&quot;, &quot;Y&quot;, &quot;N&quot;)) %&gt;% 
-   drop_unspec_vars(metacore) #This will drop any columns that aren&#39;t specificed in the metacore object</code></pre>
-<p>Now we have all the variables defined we can run some checks before
-applying the necessary formatting.</p>
-<pre class="r"><code>adsl_raw %&gt;% 
-  xportr_order(metacore) %&gt;% # Sorts the rows by the sort keys 
-  xportr_type(metacore) %&gt;% # Coerce variable type to match spec
-  xportr_length(metacore) %&gt;% # Assigns SAS length from a variable level metadata 
-  xportr_label(metacore) %&gt;% # Assigns variable label from metacore specifications 
-  xportr_df_label(metacore) %&gt;% # Assigns datasel label form metacore specficiations
-  xportr_write(&quot;adsl.xpt&quot;) #ssigns dataset label from metacore specifications</code></pre>
-<p>Let’s execute our script with timber package to get a log</p>
-</div>
+Result:
+    NULL
+--------------------------------------------------------------------------------
+-                               Log Output File                                -
+--------------------------------------------------------------------------------
+Log name: example.log
+Log path: /cloud/project/www</code></pre>
 
 
 

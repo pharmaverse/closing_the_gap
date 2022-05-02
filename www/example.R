@@ -1,15 +1,4 @@
----
-title: "Create ADSL"
-author: "Eli Miller and Ben Straub - inspired by Christina Fillmore"
-date: Sys.Date()
-output: 
-   html_document:
-      css: ["example.css"]
-description: "An example of how to generate an ADSL dataset from STDM"
----
-  The first step is to load our pharamverse libraries and data. Here we are trying to create an ADSL dataset using the pilot CDISC data.
-
-```{r setup, warning=FALSE, results='hold'}
+## ----setup, warning=FALSE, results='hold'-------------------------------------
 knitr::knit_hooks$set(purl = knitr::hook_purl)
 
 options(repos = c(
@@ -47,35 +36,22 @@ data("sdtm_qs")
 load(metacore_example("pilot_ADaM.rda"))
 metacore <- metacore %>% 
   select_dataset("ADSL")
-```
 
-## Start Building 
-
-
-The first thing we are going to do is pull through all the columns that come directly from the SDTM datasets. You might know which datasets you are going to pull from directly already, but if you don't you can call `build_from_derived` with just an empty list and the error will tell you which datasets you need to supply. 
-
-```{r, error=TRUE}
+## ---- error=TRUE--------------------------------------------------------------
 build_from_derived(metacore, list(), predecessor_only = FALSE)
-```
 
-In this case all the columns come from `DM` so that is the only dataset I will pass into `build_from_derived`. The result is all the columns are combined to make a new dataset and any columns that need renaming between SDTM and ADAM are renamed. 
-```{r demographcis}
+## ----demographcis-------------------------------------------------------------
 adsl_preds <- build_from_derived(metacore, list("dm" = sdtm_dm), predecessor_only = FALSE, keep = TRUE)
 head(adsl_preds)
-```
 
-
-Now we have the base dataset, we can start to create the variable decodes and groups using the control terminology. 
-
-```{r}
+## -----------------------------------------------------------------------------
 
 mock_fpath <- system.file("extdata", "mock_spec.xlsx", package="metacore")
 cts <- readxl::read_xlsx(mock_fpath, sheet = 4)
 
 metacore$codelist
-```
 
-```{r ct}
+## ----ct-----------------------------------------------------------------------
 adsl_ct <- adsl_preds %>% 
    create_cat_var(metacore, AGE, AGEGR1, AGEGR1N) %>% 
    create_var_from_codelist(metacore, RACE, RACEN) %>% 
@@ -86,12 +62,8 @@ adsl_ct <- adsl_preds %>%
       TRT01A = TRT01P,
       TRT01AN = TRT01PN,
       ITTFL = if_else(!is.na(ARM) & ARM != "Screen Failure", "Y", "N"))
-```
 
-
-
-
-```{r exposure}
+## ----exposure-----------------------------------------------------------------
 
 adsl_dates <- adsl_ct %>%
    derive_var_trtsdtm(dataset_ex = sdtm_ex) %>% # Derive Datetime of First Exposure to Treatment
@@ -103,11 +75,8 @@ adsl_dates <- adsl_ct %>%
           SAFFL = if_else(ITTFL == "Y" & !is.na(TRTSDT), "Y", "N")) %>% 
           drop_unspec_vars(metacore)
    
-```
 
-
-
-```{r disposition, warning=FALSE}
+## ----disposition, warning=FALSE-----------------------------------------------
 adsl_dispo <- adsl_dates %>% 
    # Derive a Disposition Status 
    derive_disposition_status(
@@ -144,11 +113,8 @@ adsl_dispo <- sdtm_ds %>%
    select(USUBJID, VISNUMEN) %>% 
    left_join(adsl_dispo, ., by = "USUBJID")
 
-```
 
-
-
-```{r BMI}
+## ----BMI----------------------------------------------------------------------
 # Get heights at screening cause those are the only heights available 
 heights <- sdtm_vs %>% 
    filter(VISITNUM == 1, VSTESTCD == 'HEIGHT') %>% 
@@ -170,12 +136,8 @@ bmis
 
 adsl_bmi <- left_join(adsl_dispo, bmis, by = "USUBJID")
 
-```
 
-
-## Apply Codelists
-
-```{r Complete Flags}
+## ----Complete Flags-----------------------------------------------------------
 
 completer_cal <- function(.data, wk_num, sv){
    new_col <- paste0("COMP", wk_num, "FL") %>% sym()
@@ -198,9 +160,8 @@ adsl_fls <- adsl_bmi %>%
    completer_cal(16, sdtm_sv) %>% 
    completer_cal(24, sdtm_sv) %>% 
    left_join(first_visit, by= "USUBJID")
-```
 
-```{r Medical History}
+## ----Medical History----------------------------------------------------------
 adsl_ed <- sdtm_sc %>% 
    filter(SCTESTCD == "EDLEVEL") %>% 
    select(USUBJID, SCSTRESN) %>% 
@@ -220,10 +181,8 @@ adsl_mh <- sdtm_mh %>%
    left_join(adsl_alz, ., by = "USUBJID") %>% 
    mutate(DURDIS = interval(DISONSDT, VISIT1DT) %/% months(1)) %>% 
    create_cat_var(metacore, DURDIS, DURDSGR1)
-```
 
-
-```{r Efficacy Flag}
+## ----Efficacy Flag------------------------------------------------------------
 adsl_raw <- sdtm_qs %>% 
    filter(VISITNUM > 3) %>% 
    group_by(USUBJID) %>% 
@@ -232,26 +191,15 @@ adsl_raw <- sdtm_qs %>%
    mutate(EFFFL = if_else(efffl & SAFFL == "Y", "Y", "N")) %>% 
    drop_unspec_vars(metacore) #This will drop any columns that aren't specificed in the metacore object
 
-```
+
+## ----checks, message=FALSE, warning=FALSE-------------------------------------
 
 
-Now we have all the variables defined we can run some checks before applying the necessary formatting. 
-
-```{r checks, message=FALSE, warning=FALSE}
 adsl_raw %>% 
   xportr_order(metacore) %>% # Sorts the rows by the sort keys 
   xportr_type(metacore) %>% # Coerce variable type to match spec
   xportr_length(metacore) %>% # Assigns SAS length from a variable level metadata 
   xportr_label(metacore) %>% # Assigns variable label from metacore specifications 
   xportr_df_label(metacore) %>% # Assigns datasel label form metacore specficiations
-  xportr_write("adsl.xpt") #ssigns dataset label from metacore specifications
-```
+  xportr_write("adsl.xpt") # Assigns dataset label from metacore specifications
 
-Let's execute our script with timber package to get a log
-```{r}
-
-timber::axecute("/cloud/project/www/example.R", 
-                remove_log_object = FALSE)
-
-
-```
