@@ -173,10 +173,9 @@ height = 500
 
 - [Feb 25, 2022 - Backend updates made to haven](https://github.com/tidyverse/haven/pull/659) 
 
-- In Progress - Updates to xportr to switch to haven.
+- [April 15, 2022 - Updates to haven released and have been implemented into xportr](https://github.com/tidyverse/haven/releases/tag/v2.5.0)
 
 ]
-
 ]
 
 ---
@@ -216,7 +215,7 @@ height = 500
 .two-column[
 
 .left-col[
-![timber](www/img/timber.png)
+![timber](www/img/timber_May_2022.png)
 ]
 
 .right-col[
@@ -238,19 +237,15 @@ height = 500
 ]
 ]
 
-
-
 ---
+
+class: middle, left
 
 # {xportr}
 
-.two-column[
+![xportr](www/img/xportr_piped.png)
 
-.left-col[
-![xportr](www/img/xportr.png)
-]
 
-.right-col[
 **Challenges for R in CRP**
 
 - Writing a compliant xpt file using haven or other xpt-supported packages is challenging for types, lengths and labels
@@ -258,25 +253,25 @@ height = 500
 **Solutions**
 
 - Adding well defined metadata
-
 - Helps to write compliant xpt files
-
 - Logs and messages for information about metadata
-
 - Checks on the data before final output
 
 **Future development path**
 
 - How to ingest metadata specifications from different companies and different file formats
-]
-]
-
 
 ---
 
-# End to End Example
+# 
 
 <iframe src='www/example.html' style="width:100%;height:85%;"/>
+
+---
+
+# 
+
+<iframe src='www/example_with_log.html' style="width:100%;height:85%;"/>
 
 ---
 
