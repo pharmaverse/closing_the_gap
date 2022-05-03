@@ -426,16 +426,13 @@ pre code {
 <h1 class="title toc-ignore">Create ADSL</h1>
 <h4 class="author">Eli Miller and Ben Straub - inspired by Christina
 Fillmore</h4>
-<h4 class="date">Sys.Date()</h4>
 
 </div>
 
 
 <p>The first step is to load our pharamverse libraries and data. Here we
 are trying to create an ADSL dataset using the pilot CDISC data.</p>
-<pre class="r"><code>knitr::knit_hooks$set(purl = knitr::hook_purl)
-
-options(repos = c(
+<pre class="r"><code>options(repos = c(
   pharmaverse = &#39;https://pharmaverse.r-universe.dev&#39;,
   CRAN = &#39;https://cloud.r-project.org&#39;))
 
@@ -453,10 +450,9 @@ suppressPackageStartupMessages({
    library(haven)
    remotes::install_github(&quot;atorus-research/timber&quot;, ref = &quot;dev&quot;)
   library(timber)
-})</code></pre>
-<pre><code>## Skipping install of &#39;timber&#39; from a github remote, the SHA1 (1c94b812) has not changed since last install.
-##   Use `force = TRUE` to force installation</code></pre>
-<pre class="r"><code># Read in data 
+})
+
+# Read in data 
 data(&quot;sdtm_dm&quot;)
 data(&quot;sdtm_ds&quot;)
 data(&quot;sdtm_ex&quot;)
@@ -471,6 +467,21 @@ data(&quot;sdtm_qs&quot;)
 load(metacore_example(&quot;pilot_ADaM.rda&quot;))
 metacore &lt;- metacore %&gt;% 
   select_dataset(&quot;ADSL&quot;)</code></pre>
+<pre class="r"><code>metacore$ds_vars</code></pre>
+<pre><code>## # A tibble: 49 × 7
+##    dataset variable key_seq order keep  core  supp_flag
+##    &lt;chr&gt;   &lt;chr&gt;      &lt;int&gt; &lt;int&gt; &lt;lgl&gt; &lt;chr&gt; &lt;lgl&gt;    
+##  1 ADSL    STUDYID       NA     1 FALSE &lt;NA&gt;  NA       
+##  2 ADSL    USUBJID        1     2 FALSE &lt;NA&gt;  NA       
+##  3 ADSL    SUBJID        NA     3 FALSE &lt;NA&gt;  NA       
+##  4 ADSL    SITEID        NA     4 FALSE &lt;NA&gt;  NA       
+##  5 ADSL    SITEGR1       NA     5 FALSE &lt;NA&gt;  NA       
+##  6 ADSL    ARM           NA     6 FALSE &lt;NA&gt;  NA       
+##  7 ADSL    TRT01P        NA     7 FALSE &lt;NA&gt;  NA       
+##  8 ADSL    TRT01PN       NA     8 FALSE &lt;NA&gt;  NA       
+##  9 ADSL    TRT01A        NA     9 FALSE &lt;NA&gt;  NA       
+## 10 ADSL    TRT01AN       NA    10 FALSE &lt;NA&gt;  NA       
+## # … with 39 more rows</code></pre>
 <div id="start-building" class="section level2">
 <h2>Start Building</h2>
 <p>The first thing we are going to do is pull through all the columns
@@ -503,24 +514,15 @@ head(adsl_preds)</code></pre>
 ## 6   F NOT HISPANIC OR LATINO  &lt;NA&gt; 2013-02-12 2013-03-29              Placebo</code></pre>
 <p>Now we have the base dataset, we can start to create the variable
 decodes and groups using the control terminology.</p>
-<pre class="r"><code>mock_fpath &lt;- system.file(&quot;extdata&quot;, &quot;mock_spec.xlsx&quot;, package=&quot;metacore&quot;)
-cts &lt;- readxl::read_xlsx(mock_fpath, sheet = 4)
-
-metacore$codelist</code></pre>
-<pre><code>## # A tibble: 25 × 4
-##    code_id    name    codes            type       
-##    &lt;chr&gt;      &lt;chr&gt;   &lt;list&gt;           &lt;chr&gt;      
-##  1 CL.AGEGR1  AGEGR1  &lt;tibble [3 × 2]&gt; code_decode
-##  2 CL.AGEGR1N AGEGR1N &lt;tibble [3 × 2]&gt; code_decode
-##  3 CL.AGEU    AGEU    &lt;tibble [1 × 2]&gt; code_decode
-##  4 CL.ARM     ARM     &lt;tibble [3 × 2]&gt; code_decode
-##  5 CL.ARM     ARM     &lt;tibble [3 × 2]&gt; code_decode
-##  6 CL.ARM     ARM     &lt;tibble [3 × 2]&gt; code_decode
-##  7 CL.ARMN    ARMN    &lt;tibble [3 × 2]&gt; code_decode
-##  8 CL.ARMN    ARMN    &lt;tibble [3 × 2]&gt; code_decode
-##  9 CL.BMICAT  BMICAT  &lt;tibble [3 × 2]&gt; code_decode
-## 10 CL.DISCCD  DISCCD  &lt;tibble [9 × 2]&gt; code_decode
-## # … with 15 more rows</code></pre>
+<pre class="r"><code>race &lt;- metacore$codelist$codes[16]
+race</code></pre>
+<pre><code>## [[1]]
+## # A tibble: 3 × 2
+##   code  decode 
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 F     Female 
+## 2 M     Male   
+## 3 U     Unknown</code></pre>
 <pre class="r"><code>adsl_ct &lt;- adsl_preds %&gt;% 
    create_cat_var(metacore, AGE, AGEGR1, AGEGR1N) %&gt;% 
    create_var_from_codelist(metacore, RACE, RACEN) %&gt;% 
@@ -668,6 +670,7 @@ applying the necessary formatting.</p>
   xportr_df_label(metacore) %&gt;% # Assigns datasel label form metacore specficiations
   xportr_write(&quot;adsl.xpt&quot;) #ssigns dataset label from metacore specifications</code></pre>
 <p>Let’s execute our script with timber package to get a log</p>
+<pre class="r"><code>timber::axecute(&quot;./example.R&quot;, remove_log_object = TRUE)</code></pre>
 </div>
 
 

@@ -1,7 +1,7 @@
 ---
 title: "Create ADSL"
 author: "Eli Miller and Ben Straub - inspired by Christina Fillmore"
-date: Sys.Date()
+date: ""
 output: 
    html_document:
       css: ["example.css"]
@@ -9,9 +9,11 @@ description: "An example of how to generate an ADSL dataset from STDM"
 ---
   The first step is to load our pharamverse libraries and data. Here we are trying to create an ADSL dataset using the pilot CDISC data.
 
-```{r setup, warning=FALSE, results='hold'}
+```{r setup, warning=FALSE, results='hold', echo=FALSE}
 knitr::knit_hooks$set(purl = knitr::hook_purl)
+```
 
+```{r, warning=FALSE, results='hold', message=FALSE}
 options(repos = c(
   pharmaverse = 'https://pharmaverse.r-universe.dev',
   CRAN = 'https://cloud.r-project.org'))
@@ -49,6 +51,11 @@ metacore <- metacore %>%
   select_dataset("ADSL")
 ```
 
+```{r}
+metacore$ds_vars
+```
+
+
 ## Start Building 
 
 
@@ -59,6 +66,7 @@ build_from_derived(metacore, list(), predecessor_only = FALSE)
 ```
 
 In this case all the columns come from `DM` so that is the only dataset I will pass into `build_from_derived`. The result is all the columns are combined to make a new dataset and any columns that need renaming between SDTM and ADAM are renamed. 
+
 ```{r demographcis}
 adsl_preds <- build_from_derived(metacore, list("dm" = sdtm_dm), predecessor_only = FALSE, keep = TRUE)
 head(adsl_preds)
@@ -68,11 +76,8 @@ head(adsl_preds)
 Now we have the base dataset, we can start to create the variable decodes and groups using the control terminology. 
 
 ```{r}
-
-mock_fpath <- system.file("extdata", "mock_spec.xlsx", package="metacore")
-cts <- readxl::read_xlsx(mock_fpath, sheet = 4)
-
-metacore$codelist
+race <- metacore$codelist$codes[16]
+race
 ```
 
 ```{r ct}
@@ -234,7 +239,6 @@ adsl_raw <- sdtm_qs %>%
 
 ```
 
-
 Now we have all the variables defined we can run some checks before applying the necessary formatting. 
 
 ```{r checks, message=FALSE, warning=FALSE}
@@ -248,10 +252,6 @@ adsl_raw %>%
 ```
 
 Let's execute our script with timber package to get a log
-```{r}
-
-timber::axecute("/cloud/project/www/example.R", 
-                remove_log_object = FALSE)
-
-
+```{r, echo=TRUE, eval=FALSE}
+timber::axecute("./example.R")
 ```

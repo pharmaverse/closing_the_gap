@@ -1,6 +1,7 @@
-## ----setup, warning=FALSE, results='hold'-------------------------------------
+## ----setup, warning=FALSE, results='hold', echo=FALSE-------------------------
 knitr::knit_hooks$set(purl = knitr::hook_purl)
 
+## ---- warning=FALSE, results='hold', message=FALSE----------------------------
 options(repos = c(
   pharmaverse = 'https://pharmaverse.r-universe.dev',
   CRAN = 'https://cloud.r-project.org'))
@@ -37,6 +38,9 @@ load(metacore_example("pilot_ADaM.rda"))
 metacore <- metacore %>% 
   select_dataset("ADSL")
 
+## -----------------------------------------------------------------------------
+metacore$ds_vars
+
 ## ---- error=TRUE--------------------------------------------------------------
 build_from_derived(metacore, list(), predecessor_only = FALSE)
 
@@ -45,11 +49,8 @@ adsl_preds <- build_from_derived(metacore, list("dm" = sdtm_dm), predecessor_onl
 head(adsl_preds)
 
 ## -----------------------------------------------------------------------------
-
-mock_fpath <- system.file("extdata", "mock_spec.xlsx", package="metacore")
-cts <- readxl::read_xlsx(mock_fpath, sheet = 4)
-
-metacore$codelist
+race <- metacore$codelist$codes[16]
+race
 
 ## ----ct-----------------------------------------------------------------------
 adsl_ct <- adsl_preds %>% 
@@ -193,13 +194,14 @@ adsl_raw <- sdtm_qs %>%
 
 
 ## ----checks, message=FALSE, warning=FALSE-------------------------------------
-
-
 adsl_raw %>% 
   xportr_order(metacore) %>% # Sorts the rows by the sort keys 
   xportr_type(metacore) %>% # Coerce variable type to match spec
   xportr_length(metacore) %>% # Assigns SAS length from a variable level metadata 
   xportr_label(metacore) %>% # Assigns variable label from metacore specifications 
   xportr_df_label(metacore) %>% # Assigns datasel label form metacore specficiations
-  xportr_write("adsl.xpt") # Assigns dataset label from metacore specifications
+  xportr_write("adsl.xpt") #ssigns dataset label from metacore specifications
+
+## ---- echo=TRUE, eval=FALSE---------------------------------------------------
+#  timber::axecute("./example.R", remove_log_object = TRUE)
 
