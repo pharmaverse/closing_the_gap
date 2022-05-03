@@ -42,9 +42,9 @@ class: middle, center
 
 Defining the Clinical Reporting Pipeline
 
-Open Source in a Regulated Environment
-
 A collaboration begins between Atorus and GSK
+
+Open Source in a Regulated Environment
 
 Overview of the 3 Packages – {metacore}, {timber}, {xportr}
 
