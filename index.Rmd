@@ -93,6 +93,7 @@ eCTD Portal
 
 [Collected] -> [Tabulation]
 [Tabulation] -> [Analysis Ready]
+[Analysis Ready] -> [Results]
 [Results] -> [Delivery to Agency]
 ]",
 width = 1000,
@@ -101,7 +102,9 @@ height = 500
 ```
 ]
 
+---
 
+![timeline](www/img/project_timeline.png)
 
 ---
 
@@ -254,7 +257,7 @@ class: middle, left
 
 - Adding well defined metadata
 - Helps to write compliant xpt files
-- Logs and messages for information about metadata
+- Custom error, warnings and messages for information about metadata
 - Checks on the data before final output
 
 **Future development path**

@@ -4,7 +4,7 @@
     <title>Closing the Gap</title>
     <meta charset="utf-8" />
     <meta name="author" content="Eli Miller, Atorus &amp; Ben Straub, GSK" />
-    <meta name="date" content="2022-05-02" />
+    <meta name="date" content="2022-05-03" />
     <script src="libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/fc.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/fc-fonts.css" rel="stylesheet" />
@@ -24,7 +24,7 @@ class: bottom, left, title-slide
 ## Creating an End-to-End R Package Toolkit for the Clinical Reporting Pipeline
 ### Eli Miller, Atorus &amp; Ben Straub, GSK
 ### Phuse Connect 2022
-### 2022-05-02
+### 2022-05-03
 
 ---
 
@@ -64,11 +64,13 @@ Welcome to the {pharmaverse}!
 # The Clinical Reporting Pipeline
 
 .center[
-<div id="htmlwidget-c76cc0a0e0afeb78e693" style="width:1000px;height:500px;" class="nomnoml html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c76cc0a0e0afeb78e693">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n[<frame>Focus on during/after the clinical trials|\n  [Collected|\n  CRFs\n  Lab Assays\n  PK\n  Medical Coding\n]\n\n[Tabulation|\n  SDTM\n  Traceability\n  No derivations\n  Comprehensive\n]\n\n[Analysis Ready|\nADaM\n\"One Proc Away\"\n\"One %>% Away\"\nDerived data\nTraceability\n] \n\n[Results|\nData Displays\nCase Study Report\nSubmission Package\nQuality Control\n]\n\n[Delivery to Agency|\neCTD Portal\n]\n\n[Collected] -> [Tabulation]\n[Tabulation] -> [Analysis Ready]\n[Results] -> [Delivery to Agency]\n]","svg":false,"png":null},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cf74f55e4eb1fdcef7cd" style="width:1000px;height:500px;" class="nomnoml html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cf74f55e4eb1fdcef7cd">{"x":{"code":"\n#fill: #FEFEFF\n#lineWidth: 1\n#zoom: 4\n#direction: right\n\n[<frame>Focus on during/after the clinical trials|\n  [Collected|\n  CRFs\n  Lab Assays\n  PK\n  Medical Coding\n]\n\n[Tabulation|\n  SDTM\n  Traceability\n  No derivations\n  Comprehensive\n]\n\n[Analysis Ready|\nADaM\n\"One Proc Away\"\n\"One %>% Away\"\nDerived data\nTraceability\n] \n\n[Results|\nData Displays\nCase Study Report\nSubmission Package\nQuality Control\n]\n\n[Delivery to Agency|\neCTD Portal\n]\n\n[Collected] -> [Tabulation]\n[Tabulation] -> [Analysis Ready]\n[Analysis Ready] -> [Results]\n[Results] -> [Delivery to Agency]\n]","svg":false,"png":null},"evals":[],"jsHooks":[]}</script>
 ]
 
+---
 
+![timeline](www/img/project_timeline.png)
 
 ---
 
@@ -221,7 +223,7 @@ class: middle, left
 
 - Adding well defined metadata
 - Helps to write compliant xpt files
-- Logs and messages for information about metadata
+- Custom error, warnings and messages for information about metadata
 - Checks on the data before final output
 
 **Future development path**
