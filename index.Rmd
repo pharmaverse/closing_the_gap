@@ -3,7 +3,7 @@ title: "Closing the Gap"
 subtitle: "Creating an End-to-End R Package Toolkit for the Clinical Reporting Pipeline"
 author: "Eli Miller, Atorus & Ben Straub, GSK"
 institute: "Phuse Connect 2022"
-date: "`r Sys.Date()`"
+date: "04-May-2022"
 output:
   xaringan::moon_reader:
     css: ['fc','fc-fonts', 'www/css/style.css']
@@ -22,7 +22,7 @@ class: middle, center
 
 # Objective
 
-## Present and discuss three R packages, {metacore}, {timber}, {xportr}, and how they fit into the larger framework of the {pharmaverse} answer to the Clinical Reporting Pipeline.
+## Present and discuss three R packages: {metacore}, {logrx}, {xportr} and how they fit into the larger framework of the {pharmaverse} answer to the Clinical Reporting Pipeline.
 
 
 ```{r, echo=FALSE, out.width="25%"}
@@ -46,7 +46,7 @@ A collaboration begins between Atorus and GSK
 
 Open Source in a Regulated Environment
 
-Overview of the 3 Packages – {metacore}, {timber}, {xportr}
+Overview of the 3 Packages – {metacore}, {logrx}, {xportr}
 
 Welcome to the {pharmaverse}!
 
@@ -213,12 +213,12 @@ height = 500
 
 ---
 
-# {timber}
+# {logrx}
 
 .two-column[
 
 .left-col[
-![timber](www/img/timber_May_2022.png)
+![logrx](www/img/timber_May_2022.png)
 ]
 
 .right-col[
@@ -237,6 +237,8 @@ height = 500
 - Interactive display screen to batch submit multiple programs.
 
 - What else should go in a log?  Companies might have different needs.
+
+- Name changed to logrx - got to be quick!!
 ]
 ]
 
